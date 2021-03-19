@@ -8,7 +8,7 @@ class Stock(MarketObjectBase):
         Stock constructor
 
         Args:
-        stock_data (list [(date (str),price (float)) ]): stock prices
+        stock_data (list [(date (datetime),price (float)) ]): stock prices
         """
 
         self.__symbol = symbol
