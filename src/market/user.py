@@ -1,8 +1,7 @@
-import parent_dir
 import pzd_utils as utils
-import stock_manager
-from portfolio import Portfolio
-from core import MarketObjectBase 
+import market.stock_manager as stock_manager
+from market.portfolio import Portfolio
+from market.core import MarketObjectBase 
 
 class User(MarketObjectBase):
     """ Class to represent a user """

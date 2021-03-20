@@ -1,5 +1,4 @@
-import parent_dir
-from core import MarketObjectBase
+from market.core import MarketObjectBase
 
 class Stock(MarketObjectBase):
     """ Class to represent a stock """

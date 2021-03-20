@@ -1,20 +1,21 @@
-import user_manager
-from core import MarketObjectBase, Action
+import market.user_manager as user_manager
+from market.core import MarketObjectBase, Action
 from queue import Queue
 
-__trader = None
+TRADER = None
 
 def get_trader():
-    if not __trader:
-        __trader = Trader()
+    global TRADER
+    if not TRADER:
+        TRADER = Trader()
 
-    return __trader
+    return TRADER
 
 class Trader(MarketObjectBase):
     def __init__(self):
-        global __trader
+        global TRADER
 
-        if __trader:
+        if TRADER:
             raise RuntimeError("Trader instance already exists! Trader class should not be instantiated more than once!")
 
         self.__ordersQueue = Queue()
@@ -26,14 +27,16 @@ class Trader(MarketObjectBase):
 
     def handle_order(self, order_type, **kwargs):
         switch = {
-            "buy": self.create_buy_order,
-            "sell": self.create_sell_order,
+            "buy": self.__create_buy_order,
+            "sell": self.__create_sell_order,
         }
 
         order = switch[order_type](**kwargs)
         self.__ordersQueue.put(order)
 
-    def create_buy_order(self, **kwargs):
+        return ""
+
+    def __create_buy_order(self, **kwargs):
         """ returns an action which represents the market buy """
         user_id = kwargs.pop("user_id", None)
         symbol = kwargs.pop("symbol", None)
@@ -43,7 +46,7 @@ class Trader(MarketObjectBase):
         user = manager.get_user(user_id)
         return Action(user.add_position, symbol, num_shares)
 
-    def create_sell_order(self, **kwargs):
+    def __create_sell_order(self, **kwargs):
         """ returns an action which represents the market sell """
         user_id = kwargs.pop("user_id", None)
         symbol = kwargs.pop("symbol", None)

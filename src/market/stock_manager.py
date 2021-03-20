@@ -1,22 +1,24 @@
 import os
-import parent_dir
+import sys
 import pzd_constants as const
-from core import MarketObjectBase
-from stock import Stock
+from market.core import MarketObjectBase
+from market.stock import Stock
 from pzd_io import get_stock_data
 
-__manager = None
+MANAGER = None
 
 def get_manager():
-    if not __manager:
-        __manager = StockManager()
+    global MANAGER
+    if not MANAGER:
+        MANAGER = StockManager()
     
-    return  __manager
+    return  MANAGER
 
 class StockManager(MarketObjectBase):
     """ Class that's manages the stocks """
     def __init__(self):
-        if __manager:
+        global MANAGER
+        if MANAGER:
             raise RuntimeError("Stock manager instance already exists. StockManager should not be initialized more than once")
 
         self.__stocks = {}
