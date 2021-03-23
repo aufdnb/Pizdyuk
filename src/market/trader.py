@@ -34,14 +34,14 @@ class Trader(MarketObjectBase):
         order = switch[order_type](**kwargs)
         self.__ordersQueue.put(order)
 
-        return ""
+        return (200, {})
 
     def __create_buy_order(self, **kwargs):
         """ returns an action which represents the market buy """
         user_id = kwargs.pop("user_id", None)
         symbol = kwargs.pop("symbol", None)
         num_shares = kwargs.pop("num_shares", None)
-        
+
         manager = user_manager.get_manager()
         user = manager.get_user(user_id)
         return Action(user.add_position, symbol, num_shares)

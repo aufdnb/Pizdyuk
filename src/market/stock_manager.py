@@ -4,6 +4,7 @@ import pzd_constants as const
 from market.core import MarketObjectBase
 from market.stock import Stock
 from pzd_io import get_stock_data
+from pzd_utils import datetime_to_str
 
 MANAGER = None
 
@@ -30,6 +31,23 @@ class StockManager(MarketObjectBase):
 
     def get_stock(self, symbol):
         return self.__stocks.get(symbol, None)
+
+    def handle_request(self, **kwargs):
+        symbol = kwargs.pop("symbol", None)
+
+        if not symbol:
+            return (400, {"error" : "Stock symbol missing!"})
+
+        stock = self.get_stock(symbol)
+
+        if not stock:
+            return (404, {"error": "Symbol {} not found".format(symbol)})
+
+        return (200, {
+            "symbol": symbol,
+            "current_time": datetime_to_str(stock.current_time),
+            "price": stock.price
+        })
 
     def __load(self):
         data_path = const.STOCK_DATA_PATH

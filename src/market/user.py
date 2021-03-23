@@ -15,6 +15,9 @@ class User(MarketObjectBase):
 
         self.__portfolio = Portfolio(id, portfolio_members)
 
+    def update(self):
+        self.__portfolio.update()
+
     def add_position(self, symbol, amount):
         manager = stock_manager.get_manager()
         stock = manager.get_stock(symbol)
@@ -22,8 +25,10 @@ class User(MarketObjectBase):
         if not stock:
             raise RuntimeError("{} is not loaded!".format(symbol))
 
+        print("{0}, {1}, {2}".format(stock.price, amount, self.__balance))
+
         if stock.price * amount > self.__balance:
-            raise RuntimeError("Not enough funds to buy {0} shares of {1}".format(stock.amount, stock.symbol))
+            raise RuntimeError("Not enough funds to buy {0} shares of {1}".format(amount, stock.symbol))
 
         self.__portfolio.add_position(symbol, stock.price, stock.current_time, amount)
 

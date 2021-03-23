@@ -14,8 +14,11 @@ def get_stock_data(csv_file):
     with open(csv_file, newline='') as f:
         reader = csv.reader(f, delimiter=',')
         for row in reader:
+            if row == []:
+                #TODO remove
+                continue
             date = datetime.datetime.strptime(row[0], DATE_FORMAT)
-            price = row[1]
+            price = float(row[1])
             stock_data.append((date, price))
 
     return stock_data

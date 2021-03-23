@@ -24,16 +24,20 @@ class UserManager(MarketObjectBase):
         print("LOADING")
         pass
     
+    def update(self):
+        for id, user in self.__users.items():
+            user.update()
 
     def handle_create_request(self, **kwargs):
         name = kwargs.pop("name", None)
         id = kwargs.pop("user_id", None)
+        balance = kwargs.pop("balance", 0)
         # TODO add parsing for portfolio members
-        user_id = self.__create_user(name, id)
-        return {"user_id": user_id}
+        user_id = self.__create_user(name, id, balance)
+        return (200, {"user_id": user_id})
 
-    def __create_user(self, name, id=None, portfolio_members = None):
-        user = User(name, id, portfolio_members)
+    def __create_user(self, name, id=None, balance=0, portfolio_members = None):
+        user = User(name, id, balance, portfolio_members)
         self.__users[user.id] = user
         return user.id
 

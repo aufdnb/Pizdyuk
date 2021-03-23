@@ -1,7 +1,7 @@
 import pzd_constants as const
 from market.core import MarketObjectBase
 from datetime import datetime
-import market.stock_manager
+import market.stock_manager as stock_manager
 
 class Portfolio(MarketObjectBase):
     """ Class to represet a portfolio """
