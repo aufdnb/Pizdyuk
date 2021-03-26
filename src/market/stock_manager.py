@@ -51,6 +51,8 @@ class StockManager(MarketObjectBase):
 
     def __load(self):
         data_path = const.STOCK_DATA_PATH
+        src_dir = os.path.dirname(os.path.dirname(__file__))
+        data_path = os.path.join(src_dir, data_path)
 
         for root, dirs, files in os.walk(data_path):
             for f in files:

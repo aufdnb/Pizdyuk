@@ -40,8 +40,9 @@ class PizdyukRequestHandler(BaseHTTPRequestHandler):
         try:
             response = switch[request_type](request_data)
         except Exception as e:
-            raise 
-            return (500, {})
+            raise
+            print(str(e))
+            return (500, {"error": "Uknown error ocurred"})
 
         return response
 
@@ -51,6 +52,7 @@ class PizdyukRequestHandler(BaseHTTPRequestHandler):
         if not action:
             return (400, {"error": "Missing 'action' field."})
 
+        response = None
         t = trader.get_trader()
         user_manager = users.get_manager()
         action.lower()
@@ -71,9 +73,12 @@ class PizdyukRequestHandler(BaseHTTPRequestHandler):
             return (400, {"error": "Missing 'action' field."})
 
         stock_manager = stocks.get_manager()
+        user_manager = users.get_manager()
 
         if action == "get_stock":
             response = stock_manager.handle_request(**get_data)
+        elif action == "get_user":
+            response = user_manager.handle_get_request(**get_data)
 
         return response
         

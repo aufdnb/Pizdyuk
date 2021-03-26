@@ -30,6 +30,7 @@ class Portfolio(MarketObjectBase):
 
         if not portfolio_member:
             portfolio_member = self.__create_portfolio_member(symbol)
+            self.__portfolio_members[symbol] = portfolio_member
 
         portfolio_member.add_position(price, date, amount)
 
@@ -37,10 +38,29 @@ class Portfolio(MarketObjectBase):
         portfolio_member = self.__portfolio_members.get(symbol, None)
 
         if not portfolio_member:
-            portfolio_member = self.__create_portfolio_member(symbol)
+            raise RuntimeError("Cannot remove position that does not exist")
 
         portfolio_member.remove_position(price, date, amount)
 
+    def has_member(self, symbol):
+        return bool(self.__portfolio_members.get(symbol, None))
+
+    def get_position_size(self, symbol):
+        portfolio_member = self.__portfolio_members.get(symbol, None)
+
+        if not portfolio_member:
+            return 0
+
+        return portfolio_member.position_size
+
+    def get_object_info(self):
+        info = {}
+
+        for symbol, member in self.__portfolio_members.items():
+            info[symbol] = member.get_object_info()
+
+        return info
+        
     def __create_portfolio_member(self, symbol):
         manager = stock_manager.get_manager()
         stock = manager.get_stock(symbol)
@@ -67,23 +87,42 @@ class PortfolioMember(MarketObjectBase):
         self.__activity = []
 
     def update(self):
-        self.__performance = self.__average_price - self.__stock.price
-        self.__performance_percentage = self.__performance / self.__bought_price
+        if self.__position_size != 0:
+            self.__performance = self.__average_price - self.__stock.price
+            self.__performance_percentage = (self.__average_price / self.__stock.price - 1) * 100
 
     def add_position(self, price, date, amount):
         self.__average_price = (self.__average_price * self.__position_size + price * amount) / (self.__position_size + amount)
         date_str = datetime.strftime(date, const.DATE_FORMAT)
         self.__activity.append(("BUY", date_str, price, amount))
         self.__position_size = self.__position_size + amount
+        print("Position added!")
 
     def remove_position(self, price, date, amount):
         if self.__position_size >= amount:
             date_str = datetime.strftime(date, const.DATE_FORMAT)
-            self.__average_price = (self.__average_price * self.__position_size - price * amount) / (self.__position_size - amount)
+
+            if (self.__position_size - amount) != 0:
+                self.__average_price = (self.__average_price * self.__position_size - price * amount) / (self.__position_size - amount)
+            else:
+                self.__average_price = 0
+
             self.__activity.append(("SELL", date_str, price, amount))
             self.__position_size = self.__position_size - amount
+            return
 
         raise RuntimeError("Not enought shares to sell! {}".format(self.__stock.symbol))
+
+    def get_object_info(self):
+        return {
+            "symbol": self.__stock.symbol,
+            "current_price": self.__stock.price,
+            "average_price": self.__average_price,
+            "performance": self.__performance,
+            "performance_percentage": self.__performance_percentage,
+            "num_shares": self.__position_size,
+            "activity": self.__activity
+        }
 
     @property
     def performance(self):
@@ -104,5 +143,9 @@ class PortfolioMember(MarketObjectBase):
 
     @property
     def total_value(self):
-        return self.__position_size * self.__average_price 
+        return self.__position_size * self.__average_price
+
+    @property
+    def position_size(self):
+        return self.__position_size 
     

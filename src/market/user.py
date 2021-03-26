@@ -18,6 +18,22 @@ class User(MarketObjectBase):
     def update(self):
         self.__portfolio.update()
 
+    def can_add_position(self, symbol, amount):
+        manager = stock_manager.get_manager()
+        stock = manager.get_stock(symbol)
+
+        if not stock:
+            return False
+
+        buy_price = stock.price * amount
+
+        return buy_price <= self.__balance
+
+    def can_remove_position(self, symbol, amount):
+        owned_amount = self.__portfolio.get_position_size(symbol)
+        print("Owned {0} Trying to remove {1}".format(owned_amount, amount))
+        return owned_amount >= amount 
+
     def add_position(self, symbol, amount):
         manager = stock_manager.get_manager()
         stock = manager.get_stock(symbol)
@@ -25,11 +41,11 @@ class User(MarketObjectBase):
         if not stock:
             raise RuntimeError("{} is not loaded!".format(symbol))
 
-        print("{0}, {1}, {2}".format(stock.price, amount, self.__balance))
+        if not self.can_add_position(symbol, amount):
+            raise RuntimeError("Not enough funds to buy {0} shares of {1}. Buy price ${2}. Your Balance ${3}".format(amount, stock.symbol, buy_price, self.__balance))
 
-        if stock.price * amount > self.__balance:
-            raise RuntimeError("Not enough funds to buy {0} shares of {1}".format(amount, stock.symbol))
 
+        self.__balance = self.__balance - (stock.price * amount)
         self.__portfolio.add_position(symbol, stock.price, stock.current_time, amount)
 
     def remove_position(self, symbol, amount):
@@ -39,7 +55,18 @@ class User(MarketObjectBase):
         if not stock:
             raise RuntimeError("{} is not loaded!".format(symbol))
 
+        if not self.can_remove_position(symbol, amount):
+            raise RuntimeError("The sell amount requested exceeds the owned amount")
+
         self.__portfolio.remove_position(symbol, stock.price, stock.current_time, amount)
+
+    def get_object_info(self):
+        return {
+            "name": self.__name,
+            "user_id": self.__id,
+            "balance": self.__balance,
+            "portfolio": self.__portfolio.get_object_info()
+        }
 
     @property
     def name(self):
