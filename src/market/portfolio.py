@@ -72,7 +72,7 @@ class Portfolio(MarketObjectBase):
         
 
 class PortfolioMember(MarketObjectBase):
-    def __init__(self, stock):
+    def __init__(self, stock, average_price=0, performance_percentage=0, performance=0, position_size=0, activity=[]):
         """
             Portfolio Member constructor
 
@@ -80,11 +80,11 @@ class PortfolioMember(MarketObjectBase):
             stock (Stock) - the stock which PortfolioMember represents
         """
         self.__stock = stock
-        self.__average_price = 0
-        self.__performance_percentage = 0
-        self.__performance = 0
-        self.__position_size = 0
-        self.__activity = []
+        self.__average_price = average_price
+        self.__performance_percentage = performance_percentage
+        self.__performance = performance
+        self.__position_size = position_size
+        self.__activity = activity
 
     def update(self):
         if self.__position_size != 0:
