@@ -1,7 +1,9 @@
+import os
 import csv
 import datetime
 import json
-from pzd_constants import DATE_FORMAT, SAVED_SESSION
+from pzd_errors import PizdyukError, PzdNotLoadedError
+from pzd_constants import DATE_FORMAT, USER_DATA_PATH
 from market import user, stock_manager, portfolio
 
 def get_stock_data(csv_file):
@@ -28,18 +30,36 @@ def get_stock_data(csv_file):
 def save_user(user):
     data = json.dumps(user.get_object_info())
     name = user.name
+    data_path = USER_DATA_PATH
+    src_dir = os.path.dirname(__file__)
+    data_path = os.path.join(src_dir, data_path)
 
-    with open("{}.txt".format(name), "w") as f:
+
+    with open("{0}/{1}.txt".format(data_path, name), "w") as f:
         f.write(data)
 
 
 def get_user(user_file):
+    """ 
+    Function to retrieve user data from a file
+
+    Params: 
+        user_file (str): path containing the specified user_file
+
+    Returns:
+        User object corresponding to data or None if the file is not found
+    """
+
+    if not os.path.isfile(user_file):
+        return None
+
+
     with open(user_file, "r") as f:
         user_dict = f.read()
         user_data = json.loads(user_dict)
         
         if not __validate_user_data(user_data):
-            raise RuntimeError("{} is corrupted".format(user_file))
+            raise PizdyukError("{} is corrupted".format(user_file))
 
         name = user_data['name']
         user_id = user_data['user_id']
@@ -69,9 +89,9 @@ def create_portfolio_member_from_data(portfolio_member_data):
     stock = manager.get_stock(symbol)
 
     if not stock:
-        raise RuntimeError("{} is not loaded".format(symbol))
+        raise PzdNotLoadedError("{} is not loaded".format(symbol))
 
     return  portfolio.PortfolioMember(stock, average_price, performance_percentage, performance, num_shares, activity)       
 
 def __validate_user_data(user_data):
-    return user_data.pop("name", None) and user_data.pop("user_id", None) and user_data.pop("balance", None) and user_data.pop("portfolio")
+    return user_data.get("name", None) and user_data.get("user_id", None) and user_data.get("balance", None) and user_data.get("portfolio")

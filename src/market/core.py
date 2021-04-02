@@ -1,10 +1,12 @@
+from pzd_errors import PzdNotImplementedError, ErrorSeverity
+
 class MarketObjectBase:
     def update(self):
-        raise NotImplementedError("update function should never be called on MarketObjectBase")
+        raise PzdNotImplementedError("update function should never be called on MarketObjectBase", ErrorSeverity.FATAL)
 
     def get_object_info(self):
         """ Return a dictionary with info about the object """
-        raise NotImplementedError("get_object_info should never be valled on MarketObjectBase directly")
+        raise PzdNotImplementedError("get_object_info should never be valled on MarketObjectBase directly", ErrorSeverity.FATAL)
 
 class Action:
     def __init__(self, func, *args, **kwargs):

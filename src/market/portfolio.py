@@ -1,4 +1,6 @@
 import pzd_constants as const
+from pzd_errors import PzdNotFoundError, PzdInvalidOperationError, ErrorSeverity
+from pzd_logging import PizdyukLogger
 from market.core import MarketObjectBase
 from datetime import datetime
 import market.stock_manager as stock_manager
@@ -38,7 +40,7 @@ class Portfolio(MarketObjectBase):
         portfolio_member = self.__portfolio_members.get(symbol, None)
 
         if not portfolio_member:
-            raise RuntimeError("Cannot remove position that does not exist")
+            raise PzdNotFoundError("Cannot remove position that does not exist")
 
         portfolio_member.remove_position(price, date, amount)
 
@@ -66,7 +68,7 @@ class Portfolio(MarketObjectBase):
         stock = manager.get_stock(symbol)
 
         if not stock:
-            raise RuntimeError("{} is not loaded!".format(symbol))
+            raise PzdNotFoundError("{} is not loaded!".format(symbol))
 
         return PortfolioMember(stock)
         
@@ -96,7 +98,8 @@ class PortfolioMember(MarketObjectBase):
         date_str = datetime.strftime(date, const.DATE_FORMAT)
         self.__activity.append(("BUY", date_str, price, amount))
         self.__position_size = self.__position_size + amount
-        print("Position added!")
+        logger = PizdyukLogger.get_logger()
+        logger.log_info("Position added!")
 
     def remove_position(self, price, date, amount):
         if self.__position_size >= amount:
@@ -111,7 +114,7 @@ class PortfolioMember(MarketObjectBase):
             self.__position_size = self.__position_size - amount
             return
 
-        raise RuntimeError("Not enought shares to sell! {}".format(self.__stock.symbol))
+        raise PzdInvalidOperationError("Not enought shares to sell! {}".format(self.__stock.symbol))
 
     def get_object_info(self):
         return {

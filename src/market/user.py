@@ -2,6 +2,7 @@ import pzd_utils as utils
 import market.stock_manager as stock_manager
 from market.portfolio import Portfolio
 from market.core import MarketObjectBase 
+from pzd_errors import PzdNotLoadedError, PzdInvalidOperationError
 
 class User(MarketObjectBase):
     """ Class to represent a user """
@@ -31,7 +32,7 @@ class User(MarketObjectBase):
 
     def can_remove_position(self, symbol, amount):
         owned_amount = self.__portfolio.get_position_size(symbol)
-        print("Owned {0} Trying to remove {1}".format(owned_amount, amount))
+        print("Own {0} remove {1}".format(owned_amount, amount))
         return owned_amount >= amount 
 
     def add_position(self, symbol, amount):
@@ -39,10 +40,10 @@ class User(MarketObjectBase):
         stock = manager.get_stock(symbol)
 
         if not stock:
-            raise RuntimeError("{} is not loaded!".format(symbol))
+            raise PzdNotLoadedError("{} is not loaded!".format(symbol))
 
         if not self.can_add_position(symbol, amount):
-            raise RuntimeError("Not enough funds to buy {0} shares of {1}. Buy price ${2}. Your Balance ${3}".format(amount, stock.symbol, buy_price, self.__balance))
+            raise PzdInvalidOperationError("Not enough funds to buy {0} shares of {1}. Buy price ${2}. Your Balance ${3}".format(amount, stock.symbol, buy_price, self.__balance))
 
 
         self.__balance = self.__balance - (stock.price * amount)
@@ -53,12 +54,15 @@ class User(MarketObjectBase):
         stock = manager.get_stock(symbol)
 
         if not stock:
-            raise RuntimeError("{} is not loaded!".format(symbol))
+            raise PzdNotLoadedError("{} is not loaded!".format(symbol))
 
         if not self.can_remove_position(symbol, amount):
-            raise RuntimeError("The sell amount requested exceeds the owned amount")
+            raise PzdInvalidOperationError("The sell amount requested exceeds the owned amount")
 
         self.__portfolio.remove_position(symbol, stock.price, stock.current_time, amount)
+
+    def add_funds(self, amount):
+        self.__balance = self.__balance + amount
 
     def get_object_info(self):
         return {

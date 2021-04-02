@@ -1,6 +1,8 @@
 import market.user_manager as user_manager
 import market.stock_manager as stock_manager
 from market.core import MarketObjectBase, Action
+from pzd_errors import PzdLogicError
+from pzd_logging import PizdyukLogger
 from queue import Queue
 
 TRADER = None
@@ -17,14 +19,15 @@ class Trader(MarketObjectBase):
         global TRADER
 
         if TRADER:
-            raise RuntimeError("Trader instance already exists! Trader class should not be instantiated more than once!")
+            raise PzdLogicError("Trader instance already exists! Trader class should not be instantiated more than once!")
 
         self.__ordersQueue = Queue()
+        self.__logger = PizdyukLogger.get_logger()
 
     def update(self):
         while not self.__ordersQueue.empty():
             order = self.__ordersQueue.get()
-            print("Executing")
+            self.__logger.log_info("Executing order!")
             order.execute()
 
     def handle_order(self, order_type, **kwargs):
@@ -39,7 +42,7 @@ class Trader(MarketObjectBase):
         }
 
         order = switch[order_type](**kwargs)
-        print("adding to queue")
+        self.__logger.log_info("Adding to order to the queue.")
         self.__ordersQueue.put(order)
 
         return (200, {})

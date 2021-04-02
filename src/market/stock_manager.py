@@ -3,6 +3,7 @@ import sys
 import pzd_constants as const
 from market.core import MarketObjectBase
 from market.stock import Stock
+from pzd_errors import PzdLogicError
 from pzd_io import get_stock_data
 from pzd_utils import datetime_to_str
 
@@ -20,7 +21,7 @@ class StockManager(MarketObjectBase):
     def __init__(self):
         global MANAGER
         if MANAGER:
-            raise RuntimeError("Stock manager instance already exists. StockManager should not be initialized more than once")
+            raise PzdLogicError("Stock manager instance already exists. StockManager should not be initialized more than once")
 
         self.__stocks = {}
         self.__load()

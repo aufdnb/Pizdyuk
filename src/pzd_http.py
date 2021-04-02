@@ -4,6 +4,7 @@ import market.stock_manager as stocks
 import market.trader as trader
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from pzd_threading import Pizdyuk_Thread
+from pzd_logging import PizdyukLogger
 
 class PizdyukRequestHandler(BaseHTTPRequestHandler):
     def _set_response(self, response):
@@ -39,9 +40,7 @@ class PizdyukRequestHandler(BaseHTTPRequestHandler):
 
         try:
             response = switch[request_type](request_data)
-        except Exception as e:
-            raise
-            print(str(e))
+        except:
             return (500, {"error": "Uknown error ocurred"})
 
         return response
@@ -63,11 +62,14 @@ class PizdyukRequestHandler(BaseHTTPRequestHandler):
             response = t.handle_order(action, **post_data)
         elif action == "create_user":
             response = user_manager.handle_create_request(**post_data)
+        elif action == "add_funds":
+            response = user_manager.handle_add_funds_request(**post_data)
 
         return response
 
     def __handle_get_request(self, get_data):
         action = get_data.get("action", None)
+        response = None
 
         if not action:
             return (400, {"error": "Missing 'action' field."})
@@ -81,10 +83,6 @@ class PizdyukRequestHandler(BaseHTTPRequestHandler):
             response = user_manager.handle_get_request(**get_data)
 
         return response
-        
-
-    def __validate_data(self, data):
-        pass
 
 
 class PizdyukServer:
@@ -94,16 +92,16 @@ class PizdyukServer:
         self.__port = port
         self.__server_address = server_address
         self.__server = HTTPServer((server_address, port), handler)
-        self.__server
+        self.__logger = PizdyukLogger.get_logger()
 
     def start(self):
         thread = Pizdyuk_Thread(self.__server.serve_forever)
-        thread.on_started.add_handler(lambda: print("Thread started on {0}:{1}".format(self.server_address, self.port)))
-        thread.on_error.add_handler(lambda e: print("ERROR {}".format(e)))
+        thread.on_started.add_handler(lambda: self.__logger.log_info("Thread started on {0}:{1}".format(self.server_address, self.port)))
+        thread.on_error.add_handler(lambda e: self.__logger.log_error(str(e)))
         thread.start()
 
     def close(self):
-        print("Closing the server!")
+        self.__logger.log_info("Closing the server!")
         self.__server.shutdown()
 
     @property
