@@ -51,7 +51,7 @@ class PizdyukRequestHandler(BaseHTTPRequestHandler):
         if not action:
             return (400, {"error": "Missing 'action' field."})
 
-        response = None
+        response = {400, {"error": "Invalid request"}}
         t = trader.get_trader()
         user_manager = users.get_manager()
         action.lower()
@@ -69,7 +69,7 @@ class PizdyukRequestHandler(BaseHTTPRequestHandler):
 
     def __handle_get_request(self, get_data):
         action = get_data.get("action", None)
-        response = None
+        response = {400, {"error": "Invalid request"}}
 
         if not action:
             return (400, {"error": "Missing 'action' field."})
@@ -93,16 +93,25 @@ class PizdyukServer:
         self.__server_address = server_address
         self.__server = HTTPServer((server_address, port), handler)
         self.__logger = PizdyukLogger.get_logger()
+        self.__is_running = False
 
     def start(self):
+        if self.__is_running:
+            return
+
         thread = Pizdyuk_Thread(self.__server.serve_forever)
         thread.on_started.add_handler(lambda: self.__logger.log_info("Thread started on {0}:{1}".format(self.server_address, self.port)))
         thread.on_error.add_handler(lambda e: self.__logger.log_error(str(e)))
         thread.start()
+        self.__is_running = True
 
     def close(self):
+        if not self.__is_running:
+            return
+            
         self.__logger.log_info("Closing the server!")
         self.__server.shutdown()
+        self.__is_running = False
 
     @property
     def port(self):
@@ -111,3 +120,7 @@ class PizdyukServer:
     @property
     def server_address(self):
         return self.__server_address
+
+    @property
+    def is_running(self):
+        return self.__is_running

@@ -43,7 +43,7 @@ class TypedEvent(EventBase):
             Args:
             argument (event_type): argument to invoke handlers with
         """
-        if not isinstance(type(argument), self.__event_type):
+        if not isinstance(argument, self.__event_type):
             raise TypeError("Expected {0}: invoked with {1}".format(self.__event_type, type(argument)))
 
         for handler in self._handlers:

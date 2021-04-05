@@ -6,10 +6,16 @@ setuptools.setup(
     author="Jahangir Gasimov",
     description="Stock Market Simulation tool",
     url="https://github.com/aufdnb/Pizdyuk.git",
-    package_dir={"": "src"},
-    packages=setuptools.find_packages(where="src"),
+    package_dir={"": "pizdyuk"},
+    packages=setuptools.find_packages(where="pizdyuk"),
     install_requires=[
 
+    ],
+    setup_requires=["pytest-runner"],
+    test_suite="tests",
+    tests_require=[
+        "pytest",
+        "pytest-mock",
     ],
     python_requires=">=3.9"
 )
