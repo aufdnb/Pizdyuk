@@ -12,8 +12,8 @@ class Portfolio(MarketObjectBase):
             Portfolio constructor
 
             Args:
-            user_id (string) - id of a user who owns the portfolio
-            protfolio_memebers [Optional] (dict{str: PortfolioMembers}) - collection of portfolio members
+            user_id (str) - id of a user who owns the portfolio
+            protfolio_memebers [Optional] (dict[str, PortfolioMembers]) - collection of portfolio members
         """
 
         self.__user_id = user_id
@@ -23,11 +23,24 @@ class Portfolio(MarketObjectBase):
             self.__portfolio_members = portfolio_members
 
     def update(self):
+        """
+            Calls update on each of its portfolio members
+        """
         for symbol, portfolio_member in self.__portfolio_members.items():
             portfolio_member.update()
 
 
     def add_position(self, symbol, price, date, amount):
+        """
+            Tries to add a position to the portfolio.
+            Will update or create a portfolio member depending on whether it exists or not.
+
+            Args:
+            symbol (str) - Stock symbol
+            price (float) - current Stock price
+            date (datetime) - current (simulated) date
+            amount (int)  - the size of the position to add
+        """
         portfolio_member = self.__portfolio_members.get(symbol, None)
 
         if not portfolio_member:
@@ -37,6 +50,15 @@ class Portfolio(MarketObjectBase):
         portfolio_member.add_position(price, date, amount)
 
     def remove_position(self, symbol, price, date, amount):
+        """
+            Tries to remove a position from the portfolio.
+
+            Args:
+            symbol (str) - Stock symbol
+            price (float) - current Stock price
+            date (datetime) - current (simulated) date
+            amount (int)  - the size of the position to add
+        """
         portfolio_member = self.__portfolio_members.get(symbol, None)
 
         if not portfolio_member:
@@ -45,9 +67,21 @@ class Portfolio(MarketObjectBase):
         portfolio_member.remove_position(price, date, amount)
 
     def has_member(self, symbol):
+        """
+            Returns true if a stock with symbol exists
+
+            Args:
+            symbol (str) - Stock symbol
+        """
         return bool(self.__portfolio_members.get(symbol, None))
 
     def get_position_size(self, symbol):
+        """
+            Returns the position size of the stock with the provided symbol.
+
+            Args:
+            symbol (str) - Stock symbol
+        """
         portfolio_member = self.__portfolio_members.get(symbol, None)
 
         if not portfolio_member:
@@ -56,6 +90,10 @@ class Portfolio(MarketObjectBase):
         return portfolio_member.position_size
 
     def get_object_info(self):
+        """
+            Returns a dictionary representing the object's information
+        """
+
         info = {}
 
         for symbol, member in self.__portfolio_members.items():
@@ -89,11 +127,23 @@ class PortfolioMember(MarketObjectBase):
         self.__activity = activity
 
     def update(self):
+        """
+            Updates the performance values
+        """
         if self.__position_size != 0:
             self.__performance = self.__average_price - self.__stock.price
             self.__performance_percentage = (self.__average_price / self.__stock.price - 1) * 100
 
     def add_position(self, price, date, amount):
+        """
+            Tries to add a position to the portfolio.
+
+            Args:
+            symbol (str) - Stock symbol
+            price (float) - current Stock price
+            date (datetime) - current (simulated) date
+            amount (int)  - the size of the position to add
+        """
         self.__average_price = (self.__average_price * self.__position_size + price * amount) / (self.__position_size + amount)
         date_str = datetime.strftime(date, const.DATE_FORMAT)
         self.__activity.append(("BUY", date_str, price, amount))
@@ -102,6 +152,15 @@ class PortfolioMember(MarketObjectBase):
         logger.log_info("Position added!")
 
     def remove_position(self, price, date, amount):
+        """
+            Tries to remove a position from the portfolio.
+
+            Args:
+            symbol (str) - Stock symbol
+            price (float) - current Stock price
+            date (datetime) - current (simulated) date
+            amount (int)  - the size of the position to add
+        """
         if self.__position_size >= amount:
             date_str = datetime.strftime(date, const.DATE_FORMAT)
 
@@ -117,6 +176,9 @@ class PortfolioMember(MarketObjectBase):
         raise PzdInvalidOperationError("Not enought shares to sell! {}".format(self.__stock.symbol))
 
     def get_object_info(self):
+        """
+            Returns a dictionary representing the object's information
+        """
         return {
             "symbol": self.__stock.symbol,
             "current_price": self.__stock.price,
@@ -129,14 +191,23 @@ class PortfolioMember(MarketObjectBase):
 
     @property
     def performance(self):
+        """
+            A getter function for 'performance' attribute
+        """
         return self.__performance
 
     @property
     def performance_percentage(self):
+        """
+            A getter function for 'performance_percentage' attribute
+        """
         return self.__performance_percentage
 
     @property
     def activity(self):
+        """
+            A getter function for 'activity' attribute
+        """
         representation = ""
 
         for info in self.__activity:
@@ -146,9 +217,15 @@ class PortfolioMember(MarketObjectBase):
 
     @property
     def total_value(self):
+        """
+            A getter function for a total value of the portfolio
+        """
         return self.__position_size * self.__average_price
 
     @property
     def position_size(self):
+        """
+            A getter function for "position_size" attribute
+        """
         return self.__position_size 
     
