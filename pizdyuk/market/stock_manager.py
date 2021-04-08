@@ -10,6 +10,9 @@ from pzd_utils import datetime_to_str
 MANAGER = None
 
 def get_manager():
+    """
+        Similar to getInstance in Singleton paradigm in other languages
+    """
     global MANAGER
     if not MANAGER:
         MANAGER = StockManager()
@@ -27,13 +30,22 @@ class StockManager(MarketObjectBase):
         self.__load()
 
     def update(self):
+        """
+            Updates all of the stocks
+        """
         for symbol, stock in self.__stocks.items():
             stock.update()
 
     def get_stock(self, symbol):
+        """
+            Returns: [Stock] if symbol found else [None]
+        """
         return self.__stocks.get(symbol, None)
 
     def handle_request(self, **kwargs):
+        """
+            Handles request to get the information of the stock
+        """
         symbol = kwargs.pop("symbol", None)
 
         if not symbol:

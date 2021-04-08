@@ -206,7 +206,7 @@ class PortfolioMember(MarketObjectBase):
     @property
     def activity(self):
         """
-            A getter function for 'activity' attribute
+            Returns a string representation of portfolio activity
         """
         representation = ""
 
@@ -228,4 +228,11 @@ class PortfolioMember(MarketObjectBase):
             A getter function for "position_size" attribute
         """
         return self.__position_size 
+
+    @property
+    def average_price(self):
+        """
+            A getter function for the average price of the portfolio
+        """
+        return self.__average_price
     

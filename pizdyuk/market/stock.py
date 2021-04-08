@@ -15,16 +15,28 @@ class Stock(MarketObjectBase):
         self.__current_data_index = -1
 
     def update(self):
+        """
+            Updates the current price of the stock
+        """
         self.__current_data_index = self.__current_data_index + 1
 
     @property
     def symbol(self):
+        """
+            Getter function for the stock symbol
+        """
         return self.__symbol
 
     @property
     def price(self):
+        """
+            Getter function for the stock price
+        """
         return self.__stock_data[self.__current_data_index][1]
 
     @property
     def current_time(self):
+        """
+            Getter function for the stock's current time
+        """
         return self.__stock_data[self.__current_data_index][0]

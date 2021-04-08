@@ -8,6 +8,9 @@ from queue import Queue
 TRADER = None
 
 def get_trader():
+    """
+        Updates the current price of the stock
+    """
     global TRADER
     if not TRADER:
         TRADER = Trader()
@@ -16,6 +19,9 @@ def get_trader():
 
 class Trader(MarketObjectBase):
     def __init__(self):
+        """
+            Constructor for the Trader class
+        """
         global TRADER
 
         if TRADER:
@@ -25,12 +31,18 @@ class Trader(MarketObjectBase):
         self.__logger = PizdyukLogger.get_logger()
 
     def update(self):
+        """
+            If there are any queued order executes them
+        """
         while not self.__ordersQueue.empty():
             order = self.__ordersQueue.get()
             self.__logger.log_info("Executing order!")
             order.execute()
 
     def handle_order(self, order_type, **kwargs):
+        """
+            Handles orders. If a valid order creates and puts to the queue
+        """
         is_valid, error_msg = self.__validate_order(order_type, **kwargs)
 
         if not is_valid:

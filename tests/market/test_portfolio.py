@@ -1,7 +1,7 @@
 import pytest
 import datetime
 from pizdyuk.market.portfolio import Portfolio, PortfolioMember
-from pizdyuk.pzd_errors import PzdNotFoundError
+from pizdyuk.pzd_errors import PzdNotFoundError, PzdInvalidOperationError
 
 def test_portfolio_update(mocker):
     member_1 = mocker.Mock()
@@ -73,4 +73,38 @@ def test_portfolio_position_size(mocker):
     assert portfolio.get_position_size("mock_symbol_1") == member_1.position_size
     assert portfolio.get_position_size("mock_symbol_2") == 0
 
-    
+def test_member_update(mocker, mock_stock):
+    member = PortfolioMember(mock_stock, average_price=20, position_size=1)
+    member.update()
+
+    assert member.performance == 10
+    assert member.performance_percentage == 100
+
+def test_member_add_position(mocker, mock_stock):
+    member = PortfolioMember(mock_stock)
+    member.add_position(20, datetime.datetime.now(), 1)
+
+    assert member.activity != ""
+    assert "BUY" in member.activity
+    assert member.position_size == 1
+    assert member.total_value == 20
+
+def test_remove_position(mocker, mock_stock):
+    member_1 = PortfolioMember(mock_stock)
+
+    member_1.add_position(20, datetime.datetime.now(), 1)
+    member_1.remove_position(20, datetime.datetime.now(), 1)
+
+    with pytest.raises(Exception) as e:
+        member_1.remove_position(20, datetime.datetime.now(), 1)
+        assert isinstance(e, PzdInvalidOperationError)
+
+    assert member_1.position_size == 0
+    assert member_1.average_price == 0
+
+@pytest.fixture    
+def mock_stock(mocker):
+    mock_stock = mocker.patch("pizdyuk.market.stock.Stock")
+    mock_stock.price = 10
+    mock_stock.symbol = "mock_symbol"
+    return mock_stock

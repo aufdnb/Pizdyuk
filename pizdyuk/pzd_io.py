@@ -4,6 +4,7 @@ import datetime
 import json
 from pzd_errors import PizdyukError, PzdNotLoadedError
 from pzd_constants import DATE_FORMAT, USER_DATA_PATH
+from pzd_utils import create_portfolio_from_data, create_portfolio_member_from_data
 from market import user, stock_manager, portfolio
 
 def get_stock_data(csv_file):
@@ -70,28 +71,7 @@ def get_user(user_file):
     return user.User(name, user_id, balance, portfolio_members)
 
         
-def create_portfolio_from_data(portfolio_data):
-    portfolio_members = {}
-    for symbol, member_data in portfolio_data.items():
-        portfolio_members[symbol] = create_portfolio_member_from_data(member_data)
 
-    return portfolio_members
-        
-def create_portfolio_member_from_data(portfolio_member_data):
-    symbol = portfolio_member_data['symbol']
-    average_price = portfolio_member_data['average_price']
-    performance_percentage = portfolio_member_data['performance_percentage']
-    performance = portfolio_member_data['performance']
-    num_shares = portfolio_member_data['num_shares']
-    activity = portfolio_member_data['activity']
-
-    manager = stock_manager.get_manager()
-    stock = manager.get_stock(symbol)
-
-    if not stock:
-        raise PzdNotLoadedError("{} is not loaded".format(symbol))
-
-    return  portfolio.PortfolioMember(stock, average_price, performance_percentage, performance, num_shares, activity)       
 
 def __validate_user_data(user_data):
     return user_data.get("name", None) and user_data.get("user_id", None) and user_data.get("balance", None) and user_data.get("portfolio")
