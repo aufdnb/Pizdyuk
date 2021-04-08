@@ -1,0 +1,193 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pizdyuk.pzd_errors &#8212; Pizdyuk 1.0.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Pizdyuk 1.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">pizdyuk.pzd_errors</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for pizdyuk.pzd_errors</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span> <span class="nn">pzd_logging</span> <span class="kn">import</span> <span class="n">PizdyukLogger</span>
+
+<div class="viewcode-block" id="ErrorSeverity"><a class="viewcode-back" href="../../pizdyuk.html#pizdyuk.pzd_errors.ErrorSeverity">[docs]</a><span class="k">class</span> <span class="nc">ErrorSeverity</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="n">FATAL</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">ERROR</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">WARNING</span> <span class="o">=</span> <span class="mi">2</span></div>
+
+<div class="viewcode-block" id="PizdyukError"><a class="viewcode-back" href="../../pizdyuk.html#pizdyuk.pzd_errors.PizdyukError">[docs]</a><span class="k">class</span> <span class="nc">PizdyukError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">severity</span><span class="o">=</span><span class="n">ErrorSeverity</span><span class="o">.</span><span class="n">ERROR</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__message</span> <span class="o">=</span> <span class="n">message</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__severity</span> <span class="o">=</span> <span class="n">severity</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">severity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__severity</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">message</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__message</span></div>
+
+<div class="viewcode-block" id="PzdNotImplementedError"><a class="viewcode-back" href="../../pizdyuk.html#pizdyuk.pzd_errors.PzdNotImplementedError">[docs]</a><span class="k">class</span> <span class="nc">PzdNotImplementedError</span><span class="p">(</span><span class="n">PizdyukError</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">severity</span><span class="o">=</span><span class="n">ErrorSeverity</span><span class="o">.</span><span class="n">ERROR</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">severity</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PzdNotFoundError"><a class="viewcode-back" href="../../pizdyuk.html#pizdyuk.pzd_errors.PzdNotFoundError">[docs]</a><span class="k">class</span> <span class="nc">PzdNotFoundError</span><span class="p">(</span><span class="n">PizdyukError</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">severity</span><span class="o">=</span><span class="n">ErrorSeverity</span><span class="o">.</span><span class="n">ERROR</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">severity</span><span class="p">)</span></div>
+        
+<div class="viewcode-block" id="PzdInvalidOperationError"><a class="viewcode-back" href="../../pizdyuk.html#pizdyuk.pzd_errors.PzdInvalidOperationError">[docs]</a><span class="k">class</span> <span class="nc">PzdInvalidOperationError</span><span class="p">(</span><span class="n">PizdyukError</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">severity</span><span class="o">=</span><span class="n">ErrorSeverity</span><span class="o">.</span><span class="n">ERROR</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">severity</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PzdLogicError"><a class="viewcode-back" href="../../pizdyuk.html#pizdyuk.pzd_errors.PzdLogicError">[docs]</a><span class="k">class</span> <span class="nc">PzdLogicError</span><span class="p">(</span><span class="n">PizdyukError</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">severity</span><span class="o">=</span><span class="n">ErrorSeverity</span><span class="o">.</span><span class="n">FATAL</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">severity</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PzdNotLoadedError"><a class="viewcode-back" href="../../pizdyuk.html#pizdyuk.pzd_errors.PzdNotLoadedError">[docs]</a><span class="k">class</span> <span class="nc">PzdNotLoadedError</span><span class="p">(</span><span class="n">PizdyukError</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">severity</span><span class="o">=</span><span class="n">ErrorSeverity</span><span class="o">.</span><span class="n">FATAL</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">severity</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PizdyukErrorHandler"><a class="viewcode-back" href="../../pizdyuk.html#pizdyuk.pzd_errors.PizdyukErrorHandler">[docs]</a><span class="k">class</span> <span class="nc">PizdyukErrorHandler</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; Error Handler of Pizdyuk &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">on_fatal</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">on_error</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">on_warning</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">            PizdyukErrorHandler constructor</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">            on_fatal (Optional: function[PizdyukError]) - callback on fatal error</span>
+<span class="sd">            on_error (Optional: function[PizdyukError]) - callback on error</span>
+<span class="sd">            on_warning (Optional: function[PizdyukError]) - callback on warning</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_fatal_handler</span><span class="p">(</span><span class="n">on_fatal</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_error_handler</span><span class="p">(</span><span class="n">on_error</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_fatal_handler</span><span class="p">(</span><span class="n">on_warning</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span> <span class="o">=</span> <span class="n">PizdyukLogger</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span>
+
+<div class="viewcode-block" id="PizdyukErrorHandler.add_fatal_handler"><a class="viewcode-back" href="../../pizdyuk.html#pizdyuk.pzd_errors.PizdyukErrorHandler.add_fatal_handler">[docs]</a>    <span class="k">def</span> <span class="nf">add_fatal_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">on_fatal</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Adds a callback for handling fatal errors &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__on_fatal</span> <span class="o">=</span> <span class="n">on_fatal</span></div>
+
+<div class="viewcode-block" id="PizdyukErrorHandler.add_error_handler"><a class="viewcode-back" href="../../pizdyuk.html#pizdyuk.pzd_errors.PizdyukErrorHandler.add_error_handler">[docs]</a>    <span class="k">def</span> <span class="nf">add_error_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">on_error</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Adds a callback for handling errors &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__on_error</span> <span class="o">=</span> <span class="n">on_error</span></div>
+    
+<div class="viewcode-block" id="PizdyukErrorHandler.add_warning_handler"><a class="viewcode-back" href="../../pizdyuk.html#pizdyuk.pzd_errors.PizdyukErrorHandler.add_warning_handler">[docs]</a>    <span class="k">def</span> <span class="nf">add_warning_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">on_warning</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Adds a callback for handling warnings &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__on_warning</span> <span class="o">=</span> <span class="n">on_warning</span></div>
+
+<div class="viewcode-block" id="PizdyukErrorHandler.handle"><a class="viewcode-back" href="../../pizdyuk.html#pizdyuk.pzd_errors.PizdyukErrorHandler.handle">[docs]</a>    <span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pzd_error</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Function to handler errors of type PizdyukError</span>
+<span class="sd">            If function is not of type PizdyukError it simply reraises the error</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pzd_error</span><span class="p">,</span> <span class="n">PizdyukError</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">pzd_error</span>
+
+
+        <span class="n">switch</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">ErrorSeverity</span><span class="o">.</span><span class="n">FATAL</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">__handle_fatal</span><span class="p">,</span>
+            <span class="n">ErrorSeverity</span><span class="o">.</span><span class="n">ERROR</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">__handle_error</span><span class="p">,</span>
+            <span class="n">ErrorSeverity</span><span class="o">.</span><span class="n">WARNING</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">__handle_warning</span>
+        <span class="p">}</span>
+
+        <span class="n">switch</span><span class="p">[</span><span class="n">pzd_error</span><span class="o">.</span><span class="n">severity</span><span class="p">](</span><span class="n">pzd_error</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">__handle_fatal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span><span class="o">.</span><span class="n">log_fatal</span><span class="p">(</span><span class="n">error</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__on_fatal</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__on_fatal</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+
+        <span class="k">raise</span> <span class="n">error</span>
+
+    <span class="k">def</span> <span class="nf">__handle_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span><span class="o">.</span><span class="n">log_error</span><span class="p">(</span><span class="n">error</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__on_error</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__on_error</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__handle_warning</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span><span class="o">.</span><span class="n">log_warning</span><span class="p">(</span><span class="n">error</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__on_warning</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__on_warning</span><span class="p">(</span><span class="n">error</span><span class="p">)</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Pizdyuk 1.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">pizdyuk.pzd_errors</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Jahangir Gasimov.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.3.
+    </div>
+  </body>
+</html>

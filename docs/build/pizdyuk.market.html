@@ -1,0 +1,533 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
+    <title>pizdyuk.market package &#8212; Pizdyuk 1.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="pizdyuk package" href="pizdyuk.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pizdyuk.html" title="pizdyuk package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Pizdyuk 1.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >pizdyuk</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="pizdyuk.html" accesskey="U">pizdyuk package</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">pizdyuk.market package</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="pizdyuk-market-package">
+<h1>pizdyuk.market package<a class="headerlink" href="#pizdyuk-market-package" title="Permalink to this headline">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="module-pizdyuk.market.core">
+<span id="pizdyuk-market-core-module"></span><h2>pizdyuk.market.core module<a class="headerlink" href="#module-pizdyuk.market.core" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="pizdyuk.market.core.Action">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">pizdyuk.market.core.</span></code><code class="sig-name descname"><span class="pre">Action</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pizdyuk/market/core.html#Action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.core.Action" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="pizdyuk.market.core.Action.execute">
+<code class="sig-name descname"><span class="pre">execute</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pizdyuk/market/core.html#Action.execute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.core.Action.execute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executes the underlying function with provided args and keywords</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="pizdyuk.market.core.MarketObjectBase">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">pizdyuk.market.core.</span></code><code class="sig-name descname"><span class="pre">MarketObjectBase</span></code><a class="reference internal" href="_modules/pizdyuk/market/core.html#MarketObjectBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.core.MarketObjectBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="pizdyuk.market.core.MarketObjectBase.get_object_info">
+<code class="sig-name descname"><span class="pre">get_object_info</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pizdyuk/market/core.html#MarketObjectBase.get_object_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.core.MarketObjectBase.get_object_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a dictionary with info about the object</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pizdyuk.market.core.MarketObjectBase.update">
+<code class="sig-name descname"><span class="pre">update</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pizdyuk/market/core.html#MarketObjectBase.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.core.MarketObjectBase.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-pizdyuk.market.portfolio">
+<span id="pizdyuk-market-portfolio-module"></span><h2>pizdyuk.market.portfolio module<a class="headerlink" href="#module-pizdyuk.market.portfolio" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="pizdyuk.market.portfolio.Portfolio">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">pizdyuk.market.portfolio.</span></code><code class="sig-name descname"><span class="pre">Portfolio</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">portfolio_members</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pizdyuk/market/portfolio.html#Portfolio"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.portfolio.Portfolio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">market.core.MarketObjectBase</span></code></p>
+<p>Class to represet a portfolio</p>
+<dl class="py method">
+<dt id="pizdyuk.market.portfolio.Portfolio.add_position">
+<code class="sig-name descname"><span class="pre">add_position</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">price</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pizdyuk/market/portfolio.html#Portfolio.add_position"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.portfolio.Portfolio.add_position" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tries to add a position to the portfolio.
+Will update or create a portfolio member depending on whether it exists or not.</p>
+<p>Args:
+symbol (str) - Stock symbol
+price (float) - current Stock price
+date (datetime) - current (simulated) date
+amount (int)  - the size of the position to add</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pizdyuk.market.portfolio.Portfolio.get_object_info">
+<code class="sig-name descname"><span class="pre">get_object_info</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pizdyuk/market/portfolio.html#Portfolio.get_object_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.portfolio.Portfolio.get_object_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dictionary representing the object’s information</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pizdyuk.market.portfolio.Portfolio.get_position_size">
+<code class="sig-name descname"><span class="pre">get_position_size</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pizdyuk/market/portfolio.html#Portfolio.get_position_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.portfolio.Portfolio.get_position_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the position size of the stock with the provided symbol.</p>
+<p>Args:
+symbol (str) - Stock symbol</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pizdyuk.market.portfolio.Portfolio.has_member">
+<code class="sig-name descname"><span class="pre">has_member</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pizdyuk/market/portfolio.html#Portfolio.has_member"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.portfolio.Portfolio.has_member" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true if a stock with symbol exists</p>
+<p>Args:
+symbol (str) - Stock symbol</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pizdyuk.market.portfolio.Portfolio.remove_position">
+<code class="sig-name descname"><span class="pre">remove_position</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">price</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pizdyuk/market/portfolio.html#Portfolio.remove_position"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.portfolio.Portfolio.remove_position" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tries to remove a position from the portfolio.</p>
+<p>Args:
+symbol (str) - Stock symbol
+price (float) - current Stock price
+date (datetime) - current (simulated) date
+amount (int)  - the size of the position to add</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pizdyuk.market.portfolio.Portfolio.update">
+<code class="sig-name descname"><span class="pre">update</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pizdyuk/market/portfolio.html#Portfolio.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.portfolio.Portfolio.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls update on each of its portfolio members</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="pizdyuk.market.portfolio.PortfolioMember">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">pizdyuk.market.portfolio.</span></code><code class="sig-name descname"><span class="pre">PortfolioMember</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stock</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">average_price</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">performance_percentage</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">performance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pizdyuk/market/portfolio.html#PortfolioMember"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.portfolio.PortfolioMember" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">market.core.MarketObjectBase</span></code></p>
+<dl class="py method">
+<dt id="pizdyuk.market.portfolio.PortfolioMember.activity">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">activity</span></code><a class="headerlink" href="#pizdyuk.market.portfolio.PortfolioMember.activity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a string representation of portfolio activity</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pizdyuk.market.portfolio.PortfolioMember.add_position">
+<code class="sig-name descname"><span class="pre">add_position</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">price</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pizdyuk/market/portfolio.html#PortfolioMember.add_position"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.portfolio.PortfolioMember.add_position" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tries to add a position to the portfolio.</p>
+<p>Args:
+symbol (str) - Stock symbol
+price (float) - current Stock price
+date (datetime) - current (simulated) date
+amount (int)  - the size of the position to add</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pizdyuk.market.portfolio.PortfolioMember.average_price">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">average_price</span></code><a class="headerlink" href="#pizdyuk.market.portfolio.PortfolioMember.average_price" title="Permalink to this definition">¶</a></dt>
+<dd><p>A getter function for the average price of the portfolio</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pizdyuk.market.portfolio.PortfolioMember.get_object_info">
+<code class="sig-name descname"><span class="pre">get_object_info</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pizdyuk/market/portfolio.html#PortfolioMember.get_object_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.portfolio.PortfolioMember.get_object_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dictionary representing the object’s information</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pizdyuk.market.portfolio.PortfolioMember.performance">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">performance</span></code><a class="headerlink" href="#pizdyuk.market.portfolio.PortfolioMember.performance" title="Permalink to this definition">¶</a></dt>
+<dd><p>A getter function for ‘performance’ attribute</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pizdyuk.market.portfolio.PortfolioMember.performance_percentage">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">performance_percentage</span></code><a class="headerlink" href="#pizdyuk.market.portfolio.PortfolioMember.performance_percentage" title="Permalink to this definition">¶</a></dt>
+<dd><p>A getter function for ‘performance_percentage’ attribute</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pizdyuk.market.portfolio.PortfolioMember.position_size">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">position_size</span></code><a class="headerlink" href="#pizdyuk.market.portfolio.PortfolioMember.position_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>A getter function for “position_size” attribute</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pizdyuk.market.portfolio.PortfolioMember.remove_position">
+<code class="sig-name descname"><span class="pre">remove_position</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">price</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pizdyuk/market/portfolio.html#PortfolioMember.remove_position"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.portfolio.PortfolioMember.remove_position" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tries to remove a position from the portfolio.</p>
+<p>Args:
+symbol (str) - Stock symbol
+price (float) - current Stock price
+date (datetime) - current (simulated) date
+amount (int)  - the size of the position to add</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pizdyuk.market.portfolio.PortfolioMember.total_value">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">total_value</span></code><a class="headerlink" href="#pizdyuk.market.portfolio.PortfolioMember.total_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>A getter function for a total value of the portfolio</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pizdyuk.market.portfolio.PortfolioMember.update">
+<code class="sig-name descname"><span class="pre">update</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pizdyuk/market/portfolio.html#PortfolioMember.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.portfolio.PortfolioMember.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates the performance values</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-pizdyuk.market.stock">
+<span id="pizdyuk-market-stock-module"></span><h2>pizdyuk.market.stock module<a class="headerlink" href="#module-pizdyuk.market.stock" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="pizdyuk.market.stock.Stock">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">pizdyuk.market.stock.</span></code><code class="sig-name descname"><span class="pre">Stock</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stock_data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pizdyuk/market/stock.html#Stock"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.stock.Stock" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">market.core.MarketObjectBase</span></code></p>
+<p>Class to represent a stock</p>
+<dl class="py method">
+<dt id="pizdyuk.market.stock.Stock.current_time">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">current_time</span></code><a class="headerlink" href="#pizdyuk.market.stock.Stock.current_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Getter function for the stock’s current time</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pizdyuk.market.stock.Stock.price">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">price</span></code><a class="headerlink" href="#pizdyuk.market.stock.Stock.price" title="Permalink to this definition">¶</a></dt>
+<dd><p>Getter function for the stock price</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pizdyuk.market.stock.Stock.symbol">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">symbol</span></code><a class="headerlink" href="#pizdyuk.market.stock.Stock.symbol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Getter function for the stock symbol</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pizdyuk.market.stock.Stock.update">
+<code class="sig-name descname"><span class="pre">update</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pizdyuk/market/stock.html#Stock.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.stock.Stock.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates the current price of the stock</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-pizdyuk.market.stock_manager">
+<span id="pizdyuk-market-stock-manager-module"></span><h2>pizdyuk.market.stock_manager module<a class="headerlink" href="#module-pizdyuk.market.stock_manager" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="pizdyuk.market.stock_manager.StockManager">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">pizdyuk.market.stock_manager.</span></code><code class="sig-name descname"><span class="pre">StockManager</span></code><a class="reference internal" href="_modules/pizdyuk/market/stock_manager.html#StockManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.stock_manager.StockManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">market.core.MarketObjectBase</span></code></p>
+<p>Class that’s manages the stocks</p>
+<dl class="py method">
+<dt id="pizdyuk.market.stock_manager.StockManager.get_stock">
+<code class="sig-name descname"><span class="pre">get_stock</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pizdyuk/market/stock_manager.html#StockManager.get_stock"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.stock_manager.StockManager.get_stock" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns: [Stock] if symbol found else [None]</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pizdyuk.market.stock_manager.StockManager.handle_request">
+<code class="sig-name descname"><span class="pre">handle_request</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pizdyuk/market/stock_manager.html#StockManager.handle_request"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.stock_manager.StockManager.handle_request" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles request to get the information of the stock</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pizdyuk.market.stock_manager.StockManager.update">
+<code class="sig-name descname"><span class="pre">update</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pizdyuk/market/stock_manager.html#StockManager.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.stock_manager.StockManager.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates all of the stocks</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="pizdyuk.market.stock_manager.get_manager">
+<code class="sig-prename descclassname"><span class="pre">pizdyuk.market.stock_manager.</span></code><code class="sig-name descname"><span class="pre">get_manager</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pizdyuk/market/stock_manager.html#get_manager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.stock_manager.get_manager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Similar to getInstance in Singleton paradigm in other languages</p>
+</dd></dl>
+
+</section>
+<section id="module-pizdyuk.market.trader">
+<span id="pizdyuk-market-trader-module"></span><h2>pizdyuk.market.trader module<a class="headerlink" href="#module-pizdyuk.market.trader" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="pizdyuk.market.trader.Trader">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">pizdyuk.market.trader.</span></code><code class="sig-name descname"><span class="pre">Trader</span></code><a class="reference internal" href="_modules/pizdyuk/market/trader.html#Trader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.trader.Trader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">market.core.MarketObjectBase</span></code></p>
+<dl class="py method">
+<dt id="pizdyuk.market.trader.Trader.handle_order">
+<code class="sig-name descname"><span class="pre">handle_order</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">order_type</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pizdyuk/market/trader.html#Trader.handle_order"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.trader.Trader.handle_order" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles orders. If a valid order creates and puts to the queue</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pizdyuk.market.trader.Trader.update">
+<code class="sig-name descname"><span class="pre">update</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pizdyuk/market/trader.html#Trader.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.trader.Trader.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>If there are any queued order executes them</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="pizdyuk.market.trader.get_trader">
+<code class="sig-prename descclassname"><span class="pre">pizdyuk.market.trader.</span></code><code class="sig-name descname"><span class="pre">get_trader</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pizdyuk/market/trader.html#get_trader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.trader.get_trader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates the current price of the stock</p>
+</dd></dl>
+
+</section>
+<section id="module-pizdyuk.market.user">
+<span id="pizdyuk-market-user-module"></span><h2>pizdyuk.market.user module<a class="headerlink" href="#module-pizdyuk.market.user" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="pizdyuk.market.user.User">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">pizdyuk.market.user.</span></code><code class="sig-name descname"><span class="pre">User</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">balance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">portfolio_members</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pizdyuk/market/user.html#User"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.user.User" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">market.core.MarketObjectBase</span></code></p>
+<p>Class to represent a user</p>
+<dl class="py method">
+<dt id="pizdyuk.market.user.User.add_funds">
+<code class="sig-name descname"><span class="pre">add_funds</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amount</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pizdyuk/market/user.html#User.add_funds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.user.User.add_funds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Increases user balance by specified amount</p>
+<p>Args:
+amount (int) - amount to increase user balance by.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pizdyuk.market.user.User.add_position">
+<code class="sig-name descname"><span class="pre">add_position</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pizdyuk/market/user.html#User.add_position"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.user.User.add_position" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds specified position if possible.</p>
+<p>Args:
+symbol (str) - Stock symbol to add
+amount (int) - position size to add</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pizdyuk.market.user.User.balance">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">balance</span></code><a class="headerlink" href="#pizdyuk.market.user.User.balance" title="Permalink to this definition">¶</a></dt>
+<dd><p>A getter function for user’s balance</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pizdyuk.market.user.User.can_add_position">
+<code class="sig-name descname"><span class="pre">can_add_position</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pizdyuk/market/user.html#User.can_add_position"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.user.User.can_add_position" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if a position can be added</p>
+<p>Args:
+symbol (str) - Stock symbol to add
+amount (int) - position size to add</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pizdyuk.market.user.User.can_remove_position">
+<code class="sig-name descname"><span class="pre">can_remove_position</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pizdyuk/market/user.html#User.can_remove_position"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.user.User.can_remove_position" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if a position can be removed</p>
+<p>Args:
+symbol (str) - Stock symbol to remove
+amount (int) - position size to remove</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pizdyuk.market.user.User.get_object_info">
+<code class="sig-name descname"><span class="pre">get_object_info</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pizdyuk/market/user.html#User.get_object_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.user.User.get_object_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dict representing object</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pizdyuk.market.user.User.id">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">id</span></code><a class="headerlink" href="#pizdyuk.market.user.User.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A getter function for user’s id</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pizdyuk.market.user.User.name">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">name</span></code><a class="headerlink" href="#pizdyuk.market.user.User.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>A getter function for user’s name</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pizdyuk.market.user.User.remove_position">
+<code class="sig-name descname"><span class="pre">remove_position</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pizdyuk/market/user.html#User.remove_position"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.user.User.remove_position" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes specified position.</p>
+<p>Args:
+symbol (str) - Stock symbol to remove
+amount (int) - position size to remove</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pizdyuk.market.user.User.update">
+<code class="sig-name descname"><span class="pre">update</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pizdyuk/market/user.html#User.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.user.User.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates user portfolio</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-pizdyuk.market.user_manager">
+<span id="pizdyuk-market-user-manager-module"></span><h2>pizdyuk.market.user_manager module<a class="headerlink" href="#module-pizdyuk.market.user_manager" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="pizdyuk.market.user_manager.UserManager">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">pizdyuk.market.user_manager.</span></code><code class="sig-name descname"><span class="pre">UserManager</span></code><a class="reference internal" href="_modules/pizdyuk/market/user_manager.html#UserManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.user_manager.UserManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">market.core.MarketObjectBase</span></code></p>
+<dl class="py method">
+<dt id="pizdyuk.market.user_manager.UserManager.get_user">
+<code class="sig-name descname"><span class="pre">get_user</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pizdyuk/market/user_manager.html#UserManager.get_user"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.user_manager.UserManager.get_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a user if found</p>
+<p>Args:
+id - User id to look for</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pizdyuk.market.user_manager.UserManager.handle_add_funds_request">
+<code class="sig-name descname"><span class="pre">handle_add_funds_request</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pizdyuk/market/user_manager.html#UserManager.handle_add_funds_request"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.user_manager.UserManager.handle_add_funds_request" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles add funds request</p>
+<p>Args:
+<a href="#id1"><span class="problematic" id="id2">**</span></a>kwargs - request dictionary</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pizdyuk.market.user_manager.UserManager.handle_create_request">
+<code class="sig-name descname"><span class="pre">handle_create_request</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pizdyuk/market/user_manager.html#UserManager.handle_create_request"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.user_manager.UserManager.handle_create_request" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles create request</p>
+<p>Args:
+<a href="#id3"><span class="problematic" id="id4">**</span></a>kwargs - request dictionary</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pizdyuk.market.user_manager.UserManager.handle_get_request">
+<code class="sig-name descname"><span class="pre">handle_get_request</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pizdyuk/market/user_manager.html#UserManager.handle_get_request"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.user_manager.UserManager.handle_get_request" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles get user request</p>
+<p>Args:
+<a href="#id5"><span class="problematic" id="id6">**</span></a>kwargs - request dictionary</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pizdyuk.market.user_manager.UserManager.save_users">
+<code class="sig-name descname"><span class="pre">save_users</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pizdyuk/market/user_manager.html#UserManager.save_users"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.user_manager.UserManager.save_users" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs an IO operation. Saves all users of the current session
+to the path defined in pzd_constants.USER_PATH</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pizdyuk.market.user_manager.UserManager.update">
+<code class="sig-name descname"><span class="pre">update</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pizdyuk/market/user_manager.html#UserManager.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.user_manager.UserManager.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates all users</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="pizdyuk.market.user_manager.get_manager">
+<code class="sig-prename descclassname"><span class="pre">pizdyuk.market.user_manager.</span></code><code class="sig-name descname"><span class="pre">get_manager</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pizdyuk/market/user_manager.html#get_manager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pizdyuk.market.user_manager.get_manager" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-pizdyuk.market">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pizdyuk.market" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">pizdyuk.market package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-pizdyuk.market.core">pizdyuk.market.core module</a></li>
+<li><a class="reference internal" href="#module-pizdyuk.market.portfolio">pizdyuk.market.portfolio module</a></li>
+<li><a class="reference internal" href="#module-pizdyuk.market.stock">pizdyuk.market.stock module</a></li>
+<li><a class="reference internal" href="#module-pizdyuk.market.stock_manager">pizdyuk.market.stock_manager module</a></li>
+<li><a class="reference internal" href="#module-pizdyuk.market.trader">pizdyuk.market.trader module</a></li>
+<li><a class="reference internal" href="#module-pizdyuk.market.user">pizdyuk.market.user module</a></li>
+<li><a class="reference internal" href="#module-pizdyuk.market.user_manager">pizdyuk.market.user_manager module</a></li>
+<li><a class="reference internal" href="#module-pizdyuk.market">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="pizdyuk.html"
+                        title="previous chapter">pizdyuk package</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/pizdyuk.market.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="pizdyuk.html" title="pizdyuk package"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Pizdyuk 1.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >pizdyuk</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="pizdyuk.html" >pizdyuk package</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">pizdyuk.market package</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Jahangir Gasimov.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.3.
+    </div>
+  </body>
+</html>

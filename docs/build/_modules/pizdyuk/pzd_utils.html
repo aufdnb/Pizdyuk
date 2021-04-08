@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pizdyuk.pzd_utils &#8212; Pizdyuk 1.0.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Pizdyuk 1.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">pizdyuk.pzd_utils</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for pizdyuk.pzd_utils</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">uuid</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span> 
+<span class="kn">from</span> <span class="nn">pzd_constants</span> <span class="kn">import</span> <span class="n">DATE_FORMAT</span>
+
+
+<div class="viewcode-block" id="get_unique_id"><a class="viewcode-back" href="../../pizdyuk.html#pizdyuk.pzd_utils.get_unique_id">[docs]</a><span class="k">def</span> <span class="nf">get_unique_id</span><span class="p">():</span>
+    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="datetime_to_str"><a class="viewcode-back" href="../../pizdyuk.html#pizdyuk.pzd_utils.datetime_to_str">[docs]</a><span class="k">def</span> <span class="nf">datetime_to_str</span><span class="p">(</span><span class="n">date</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="n">DATE_FORMAT</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="create_portfolio_from_data"><a class="viewcode-back" href="../../pizdyuk.html#pizdyuk.pzd_utils.create_portfolio_from_data">[docs]</a><span class="k">def</span> <span class="nf">create_portfolio_from_data</span><span class="p">(</span><span class="n">portfolio_data</span><span class="p">):</span>
+    <span class="n">portfolio_members</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">member_data</span> <span class="ow">in</span> <span class="n">portfolio_data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">portfolio_members</span><span class="p">[</span><span class="n">symbol</span><span class="p">]</span> <span class="o">=</span> <span class="n">create_portfolio_member_from_data</span><span class="p">(</span><span class="n">member_data</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">portfolio_members</span></div>
+        
+<div class="viewcode-block" id="create_portfolio_member_from_data"><a class="viewcode-back" href="../../pizdyuk.html#pizdyuk.pzd_utils.create_portfolio_member_from_data">[docs]</a><span class="k">def</span> <span class="nf">create_portfolio_member_from_data</span><span class="p">(</span><span class="n">portfolio_member_data</span><span class="p">):</span>
+    <span class="n">symbol</span> <span class="o">=</span> <span class="n">portfolio_member_data</span><span class="p">[</span><span class="s1">&#39;symbol&#39;</span><span class="p">]</span>
+    <span class="n">average_price</span> <span class="o">=</span> <span class="n">portfolio_member_data</span><span class="p">[</span><span class="s1">&#39;average_price&#39;</span><span class="p">]</span>
+    <span class="n">performance_percentage</span> <span class="o">=</span> <span class="n">portfolio_member_data</span><span class="p">[</span><span class="s1">&#39;performance_percentage&#39;</span><span class="p">]</span>
+    <span class="n">performance</span> <span class="o">=</span> <span class="n">portfolio_member_data</span><span class="p">[</span><span class="s1">&#39;performance&#39;</span><span class="p">]</span>
+    <span class="n">num_shares</span> <span class="o">=</span> <span class="n">portfolio_member_data</span><span class="p">[</span><span class="s1">&#39;num_shares&#39;</span><span class="p">]</span>
+    <span class="n">activity</span> <span class="o">=</span> <span class="n">portfolio_member_data</span><span class="p">[</span><span class="s1">&#39;activity&#39;</span><span class="p">]</span>
+
+    <span class="n">manager</span> <span class="o">=</span> <span class="n">stock_manager</span><span class="o">.</span><span class="n">get_manager</span><span class="p">()</span>
+    <span class="n">stock</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">get_stock</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">stock</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">PzdNotLoadedError</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> is not loaded&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">symbol</span><span class="p">))</span>
+
+    <span class="k">return</span>  <span class="n">portfolio</span><span class="o">.</span><span class="n">PortfolioMember</span><span class="p">(</span><span class="n">stock</span><span class="p">,</span> <span class="n">average_price</span><span class="p">,</span> <span class="n">performance_percentage</span><span class="p">,</span> <span class="n">performance</span><span class="p">,</span> <span class="n">num_shares</span><span class="p">,</span> <span class="n">activity</span><span class="p">)</span>       </div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Pizdyuk 1.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">pizdyuk.pzd_utils</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Jahangir Gasimov.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.3.
+    </div>
+  </body>
+</html>

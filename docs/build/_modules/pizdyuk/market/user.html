@@ -1,0 +1,225 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pizdyuk.market.user &#8212; Pizdyuk 1.0.0 documentation</title>
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Pizdyuk 1.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">pizdyuk.market.user</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for pizdyuk.market.user</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">pzd_utils</span> <span class="k">as</span> <span class="nn">utils</span>
+<span class="kn">import</span> <span class="nn">market.stock_manager</span> <span class="k">as</span> <span class="nn">stock_manager</span>
+<span class="kn">from</span> <span class="nn">market.portfolio</span> <span class="kn">import</span> <span class="n">Portfolio</span>
+<span class="kn">from</span> <span class="nn">market.core</span> <span class="kn">import</span> <span class="n">MarketObjectBase</span> 
+<span class="kn">from</span> <span class="nn">pzd_errors</span> <span class="kn">import</span> <span class="n">PzdNotLoadedError</span><span class="p">,</span> <span class="n">PzdInvalidOperationError</span>
+
+<div class="viewcode-block" id="User"><a class="viewcode-back" href="../../../pizdyuk.market.html#pizdyuk.market.user.User">[docs]</a><span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="n">MarketObjectBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Class to represent a user &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">balance</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">portfolio_members</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            User class constructor</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">            name (str) - User name</span>
+<span class="sd">            id (str) - User id, must be unique. If not provided, is generated</span>
+<span class="sd">            portfolio_members ([PortfolioMember]) - portfolio_members of the current user</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__id</span> <span class="o">=</span> <span class="nb">id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__balance</span> <span class="o">=</span> <span class="n">balance</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">id</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__id</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_unique_id</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__portfolio</span> <span class="o">=</span> <span class="n">Portfolio</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">portfolio_members</span><span class="p">)</span>
+
+<div class="viewcode-block" id="User.update"><a class="viewcode-back" href="../../../pizdyuk.market.html#pizdyuk.market.user.User.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Updates user portfolio</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__portfolio</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="User.can_add_position"><a class="viewcode-back" href="../../../pizdyuk.market.html#pizdyuk.market.user.User.can_add_position">[docs]</a>    <span class="k">def</span> <span class="nf">can_add_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">amount</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Returns True if a position can be added</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">            symbol (str) - Stock symbol to add</span>
+<span class="sd">            amount (int) - position size to add</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">manager</span> <span class="o">=</span> <span class="n">stock_manager</span><span class="o">.</span><span class="n">get_manager</span><span class="p">()</span>
+        <span class="n">stock</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">get_stock</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">stock</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="n">buy_price</span> <span class="o">=</span> <span class="n">stock</span><span class="o">.</span><span class="n">price</span> <span class="o">*</span> <span class="n">amount</span>
+
+        <span class="k">return</span> <span class="n">buy_price</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__balance</span></div>
+
+<div class="viewcode-block" id="User.can_remove_position"><a class="viewcode-back" href="../../../pizdyuk.market.html#pizdyuk.market.user.User.can_remove_position">[docs]</a>    <span class="k">def</span> <span class="nf">can_remove_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">amount</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Returns True if a position can be removed</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">            symbol (str) - Stock symbol to remove</span>
+<span class="sd">            amount (int) - position size to remove</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">owned_amount</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__portfolio</span><span class="o">.</span><span class="n">get_position_size</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Own </span><span class="si">{0}</span><span class="s2"> remove </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">owned_amount</span><span class="p">,</span> <span class="n">amount</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">owned_amount</span> <span class="o">&gt;=</span> <span class="n">amount</span> </div>
+
+<div class="viewcode-block" id="User.add_position"><a class="viewcode-back" href="../../../pizdyuk.market.html#pizdyuk.market.user.User.add_position">[docs]</a>    <span class="k">def</span> <span class="nf">add_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">amount</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Adds specified position if possible.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">            symbol (str) - Stock symbol to add</span>
+<span class="sd">            amount (int) - position size to add</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">manager</span> <span class="o">=</span> <span class="n">stock_manager</span><span class="o">.</span><span class="n">get_manager</span><span class="p">()</span>
+        <span class="n">stock</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">get_stock</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">stock</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">PzdNotLoadedError</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> is not loaded!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">symbol</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">can_add_position</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">amount</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">PzdInvalidOperationError</span><span class="p">(</span><span class="s2">&quot;Not enough funds to buy </span><span class="si">{0}</span><span class="s2"> shares of </span><span class="si">{1}</span><span class="s2">. Buy price $</span><span class="si">{2}</span><span class="s2">. Your Balance $</span><span class="si">{3}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">amount</span><span class="p">,</span> <span class="n">stock</span><span class="o">.</span><span class="n">symbol</span><span class="p">,</span> <span class="n">buy_price</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__balance</span><span class="p">))</span>
+
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__balance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__balance</span> <span class="o">-</span> <span class="p">(</span><span class="n">stock</span><span class="o">.</span><span class="n">price</span> <span class="o">*</span> <span class="n">amount</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__portfolio</span><span class="o">.</span><span class="n">add_position</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">stock</span><span class="o">.</span><span class="n">price</span><span class="p">,</span> <span class="n">stock</span><span class="o">.</span><span class="n">current_time</span><span class="p">,</span> <span class="n">amount</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="User.remove_position"><a class="viewcode-back" href="../../../pizdyuk.market.html#pizdyuk.market.user.User.remove_position">[docs]</a>    <span class="k">def</span> <span class="nf">remove_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">amount</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Removes specified position.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">            symbol (str) - Stock symbol to remove</span>
+<span class="sd">            amount (int) - position size to remove</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">manager</span> <span class="o">=</span> <span class="n">stock_manager</span><span class="o">.</span><span class="n">get_manager</span><span class="p">()</span>
+        <span class="n">stock</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">get_stock</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">stock</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">PzdNotLoadedError</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> is not loaded!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">symbol</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">can_remove_position</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">amount</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">PzdInvalidOperationError</span><span class="p">(</span><span class="s2">&quot;The sell amount requested exceeds the owned amount&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__portfolio</span><span class="o">.</span><span class="n">remove_position</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">stock</span><span class="o">.</span><span class="n">price</span><span class="p">,</span> <span class="n">stock</span><span class="o">.</span><span class="n">current_time</span><span class="p">,</span> <span class="n">amount</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="User.add_funds"><a class="viewcode-back" href="../../../pizdyuk.market.html#pizdyuk.market.user.User.add_funds">[docs]</a>    <span class="k">def</span> <span class="nf">add_funds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Increases user balance by specified amount</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">            amount (int) - amount to increase user balance by.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__balance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__balance</span> <span class="o">+</span> <span class="n">amount</span></div>
+
+<div class="viewcode-block" id="User.get_object_info"><a class="viewcode-back" href="../../../pizdyuk.market.html#pizdyuk.market.user.User.get_object_info">[docs]</a>    <span class="k">def</span> <span class="nf">get_object_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Returns a dict representing object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">__name</span><span class="p">,</span>
+            <span class="s2">&quot;user_id&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">__id</span><span class="p">,</span>
+            <span class="s2">&quot;balance&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">__balance</span><span class="p">,</span>
+            <span class="s2">&quot;portfolio&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">__portfolio</span><span class="o">.</span><span class="n">get_object_info</span><span class="p">()</span>
+        <span class="p">}</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            A getter function for user&#39;s name</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__name</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            A getter function for user&#39;s id</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">balance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            A getter function for user&#39;s balance</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__balance</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Pizdyuk 1.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">pizdyuk.market.user</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Jahangir Gasimov.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pizdyuk.market.stock_manager &#8212; Pizdyuk 1.0.0 documentation</title>
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Pizdyuk 1.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">pizdyuk.market.stock_manager</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for pizdyuk.market.stock_manager</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">pzd_constants</span> <span class="k">as</span> <span class="nn">const</span>
+<span class="kn">from</span> <span class="nn">market.core</span> <span class="kn">import</span> <span class="n">MarketObjectBase</span>
+<span class="kn">from</span> <span class="nn">market.stock</span> <span class="kn">import</span> <span class="n">Stock</span>
+<span class="kn">from</span> <span class="nn">pzd_errors</span> <span class="kn">import</span> <span class="n">PzdLogicError</span>
+<span class="kn">from</span> <span class="nn">pzd_io</span> <span class="kn">import</span> <span class="n">get_stock_data</span>
+<span class="kn">from</span> <span class="nn">pzd_utils</span> <span class="kn">import</span> <span class="n">datetime_to_str</span>
+
+<span class="n">MANAGER</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="get_manager"><a class="viewcode-back" href="../../../pizdyuk.market.html#pizdyuk.market.stock_manager.get_manager">[docs]</a><span class="k">def</span> <span class="nf">get_manager</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Similar to getInstance in Singleton paradigm in other languages</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">MANAGER</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">MANAGER</span><span class="p">:</span>
+        <span class="n">MANAGER</span> <span class="o">=</span> <span class="n">StockManager</span><span class="p">()</span>
+    
+    <span class="k">return</span>  <span class="n">MANAGER</span></div>
+
+<div class="viewcode-block" id="StockManager"><a class="viewcode-back" href="../../../pizdyuk.market.html#pizdyuk.market.stock_manager.StockManager">[docs]</a><span class="k">class</span> <span class="nc">StockManager</span><span class="p">(</span><span class="n">MarketObjectBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Class that&#39;s manages the stocks &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">global</span> <span class="n">MANAGER</span>
+        <span class="k">if</span> <span class="n">MANAGER</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">PzdLogicError</span><span class="p">(</span><span class="s2">&quot;Stock manager instance already exists. StockManager should not be initialized more than once&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__stocks</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__load</span><span class="p">()</span>
+
+<div class="viewcode-block" id="StockManager.update"><a class="viewcode-back" href="../../../pizdyuk.market.html#pizdyuk.market.stock_manager.StockManager.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Updates all of the stocks</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">stock</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__stocks</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">stock</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="StockManager.get_stock"><a class="viewcode-back" href="../../../pizdyuk.market.html#pizdyuk.market.stock_manager.StockManager.get_stock">[docs]</a>    <span class="k">def</span> <span class="nf">get_stock</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Returns: [Stock] if symbol found else [None]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__stocks</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="StockManager.handle_request"><a class="viewcode-back" href="../../../pizdyuk.market.html#pizdyuk.market.stock_manager.StockManager.handle_request">[docs]</a>    <span class="k">def</span> <span class="nf">handle_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Handles request to get the information of the stock</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">symbol</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;symbol&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">symbol</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;error&quot;</span> <span class="p">:</span> <span class="s2">&quot;Stock symbol missing!&quot;</span><span class="p">})</span>
+
+        <span class="n">stock</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_stock</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">stock</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="mi">404</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="s2">&quot;Symbol </span><span class="si">{}</span><span class="s2"> not found&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">symbol</span><span class="p">)})</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s2">&quot;symbol&quot;</span><span class="p">:</span> <span class="n">symbol</span><span class="p">,</span>
+            <span class="s2">&quot;current_time&quot;</span><span class="p">:</span> <span class="n">datetime_to_str</span><span class="p">(</span><span class="n">stock</span><span class="o">.</span><span class="n">current_time</span><span class="p">),</span>
+            <span class="s2">&quot;price&quot;</span><span class="p">:</span> <span class="n">stock</span><span class="o">.</span><span class="n">price</span>
+        <span class="p">})</span></div>
+
+    <span class="k">def</span> <span class="nf">__load</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">data_path</span> <span class="o">=</span> <span class="n">const</span><span class="o">.</span><span class="n">STOCK_DATA_PATH</span>
+        <span class="n">src_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
+        <span class="n">data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">src_dir</span><span class="p">,</span> <span class="n">data_path</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">data_path</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+                <span class="n">symbol</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">f</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">stock_data</span> <span class="o">=</span> <span class="n">get_stock_data</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">/</span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="n">f</span><span class="p">))</span>
+                <span class="n">s</span> <span class="o">=</span> <span class="n">Stock</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">stock_data</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__stocks</span><span class="p">[</span><span class="n">symbol</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span></div>
+
+
+    
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Pizdyuk 1.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">pizdyuk.market.stock_manager</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Jahangir Gasimov.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.3.
+    </div>
+  </body>
+</html>
